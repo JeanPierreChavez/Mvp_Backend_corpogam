@@ -16,6 +16,10 @@ router.get("/aplicadas/semaforo", VacunaController.obtenerVacunasPorEstado);
 router.get("/aplicadas/urgentes", VacunaController.obtenerVacunasUrgentes);
 router.get("/aplicadas/animal/:id_animal", VacunaController.obtenerVacunasPorAnimal);
 
+// ⭐ NUEVA RUTA - Actualizar ambas fechas (debe ir antes del PUT genérico)
+router.put("/aplicadas/:id_vacuna_animal/completo", VacunaController.actualizarVacunaCompleta);
+
+// Rutas existentes
 router.put("/aplicadas/:id_vacuna_animal", VacunaController.actualizarProximaDosis);
 router.delete("/aplicadas/:id_vacuna_animal", VacunaController.eliminarVacunaAplicada);
 

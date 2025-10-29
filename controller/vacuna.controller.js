@@ -203,6 +203,40 @@ class VacunaController {
       });
     }
   }
+  static async actualizarVacunaCompleta(req, res) {
+  try {
+    const { id_vacuna_animal } = req.params;
+    const { fecha_aplicacion, proxima_dosis } = req.body;
+
+    if (!fecha_aplicacion || !proxima_dosis) {
+      return res.status(400).json({ 
+        message: "Ambas fechas son obligatorias" 
+      });
+    }
+
+    const vacunaActualizada = await VacunaModel.actualizarVacunaCompleta(
+      id_vacuna_animal,
+      { fecha_aplicacion, proxima_dosis }
+    );
+
+    if (!vacunaActualizada) {
+      return res.status(404).json({ 
+        message: "Registro de vacuna no encontrado" 
+      });
+    }
+
+    res.json({
+      message: "Vacuna actualizada exitosamente",
+      vacunaActualizada
+    });
+  } catch (error) {
+    console.error("Error al actualizar vacuna:", error);
+    res.status(500).json({ 
+      message: "Error al actualizar vacuna",
+      error: error.message 
+    });
+  }
+}
 }
 
 export default VacunaController;

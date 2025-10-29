@@ -167,6 +167,17 @@ class VacunaModel {
     
     return agrupado;
   }
+  static async actualizarVacunaCompleta(id_vacuna_animal, datos) {
+  const { fecha_aplicacion, proxima_dosis } = datos;
+  const result = await pool.query(
+    `UPDATE vacunas_animales 
+     SET fecha_aplicacion = $1, proxima_dosis = $2 
+     WHERE id_vacuna_animal = $3 
+     RETURNING *`,
+    [fecha_aplicacion, proxima_dosis, id_vacuna_animal]
+  );
+  return result.rows[0];
+}
 }
 
 export default VacunaModel;
